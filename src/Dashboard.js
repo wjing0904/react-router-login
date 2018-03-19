@@ -8,9 +8,9 @@ const Erying = ()=>(<h1>二营</h1>)
 const Qibinglian = ()=>(<h1>骑兵连</h1>)
 
 class Dashboard extends React.Component{
-    constructor(props){
-        super(props)
-    }
+    // constructor(props){
+    //     super(props)
+    // }
     render(){
         const match=this.props.match;
         console.log(match);

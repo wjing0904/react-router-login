@@ -1,13 +1,16 @@
+//react-redux-router-axios-login
 import React from 'react';
 import ReactDom from 'react-dom';
 import { createStore,applyMiddleware ,compose} from 'redux';
 import thunk from 'redux-thunk';//引入applyMiddleware中间件 处理异步请求
 import {Provider} from 'react-redux'//react-redux仅有2个API，Provider和connect，Provider提供的是一个顶层容器的作用，实现store的上下文传递。
+import './config'
+import 'antd-mobile/dist/antd-mobile.css' 
 
 import {
     BrowserRouter,
     Route,
-    Link,
+    // Link,
     Redirect,//路由跳转，to属性自动跳转
     Switch//只渲染第一个router组件
 } from 'react-router-dom'
