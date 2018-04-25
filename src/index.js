@@ -1,54 +1,43 @@
-//react-redux-router-axios-login
-import React from 'react';
-import ReactDom from 'react-dom';
-import { createStore,applyMiddleware ,compose} from 'redux';
-import thunk from 'redux-thunk';//引入applyMiddleware中间件 处理异步请求
-import {Provider} from 'react-redux'//react-redux仅有2个API，Provider和connect，Provider提供的是一个顶层容器的作用，实现store的上下文传递。
+import React from 'react'
+import ReactDom from 'react-dom'
+import 'antd-mobile/dist/antd-mobile.css';
+//createStore:创建redux store；applyMiddleware使用thunk方法；compose:组合两个方法
+import { createStore ,applyMiddleware,compose} from 'redux'
+import { BrowserRouter, Route, Redirect, Switch   } from 'react-router-dom'
+
+// thunk中间件，将dispatch里返回的对象变为方法
+import thunk from 'redux-thunk'
+//connect 连接
+import {Provider} from 'react-redux'
+
 import './config'
-import 'antd-mobile/dist/antd-mobile.css' 
+import './index.css'
+import reducers from './reducers'
+import Login from './container/login/login'
+import Register from './container/register/register'
+import AuthRoute from './component/authroute/authroute'
+//判断是否开启调试工具
+const windowDevToolsExtension=window.devToolsExtension?window.devToolsExtension():fn=>fn()
 
-import {
-    BrowserRouter,
-    Route,
-    // Link,
-    Redirect,//路由跳转，to属性自动跳转
-    Switch//只渲染第一个router组件
-} from 'react-router-dom'
+const store = createStore(reducers,compose(
+    applyMiddleware(thunk),
+    windowDevToolsExtension
+)) 
+function Boss(){
+    return <h2>boss页面</h2>
+}
 
-import reducers from './reducer'
-import Auth from "./Auth"
-import Dashboard from "./Dashboard"
-//使用redux-devtools,先判断有无devToolsExtension
-const reduxDevtools=window.devToolsExtension?window.devToolsExtension:()=>{};
-const store=createStore(reducers,compose(
-    applyMiddleware(thunk),reduxDevtools()
-))
-console.log(store.getState())//auth{isAuth: false, user: "李云龙"}counter:10
-
-// class Test extends React.Component{
-//     constructor(props){
-//         super(props)
-//     }
-//     render(){
-//         console.log(this.props)//history：历史记录,location：当前位置,match：与参数有关 params 
-//     //    this.props.history.push('/'):跳转到路由根目录
-//         return <h2>测试组件404 {this.props.match.params.location}</h2>
-//     }
-// }
-//登录：没有登录页面 统一调到login:Redirect
-//页面 有导航+显示+注销 ：一营， 二营， 骑兵连
-//router+redux
-
+//查看当前store内容
+console.log('store.getState()',store.getState())
 ReactDom.render(
-    <Provider store={store}>
+    <Provider  store={store}>
         <BrowserRouter>
-        <Switch>
-            {/* 只渲染第一个组件 */}
-            <Route path='/login' exact component={Auth}></Route>
-            <Route path='/dashboard' component={Dashboard}></Route>
-            <Redirect to='/dashboard'></Redirect>
-        </Switch>
+            <div>
+                <AuthRoute></AuthRoute>
+                <Route path='/boss' component={Boss}></Route>
+                <Route path='/login' component={Login}></Route>
+                <Route path='/register' component={Register}></Route>
+            </div>
         </BrowserRouter>
     </Provider>,
-    document.getElementById('root')
-)
+    document.getElementById('root'))
