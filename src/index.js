@@ -16,6 +16,9 @@ import reducers from './reducers'
 import Login from './container/login/login'
 import Register from './container/register/register'
 import AuthRoute from './component/authroute/authroute'
+import Dashboard from './component/dashboard/dashboard'
+import BossInfo from './container/bossinfo/bossinfo'
+import GeniusInfo from './container/geniusinfo/geniusinfo'
 //判断是否开启调试工具
 const windowDevToolsExtension=window.devToolsExtension?window.devToolsExtension():fn=>fn()
 
@@ -23,10 +26,11 @@ const store = createStore(reducers,compose(
     applyMiddleware(thunk),
     windowDevToolsExtension
 )) 
-function Boss(){
-    return <h2>boss页面</h2>
-}
+// function Boss(){
+//     return <h2>boss页面</h2>
+// }
 
+//boss genius me msg 四个页面
 //查看当前store内容
 console.log('store.getState()',store.getState())
 ReactDom.render(
@@ -34,9 +38,17 @@ ReactDom.render(
         <BrowserRouter>
             <div>
                 <AuthRoute></AuthRoute>
-                <Route path='/boss' component={Boss}></Route>
-                <Route path='/login' component={Login}></Route>
-                <Route path='/register' component={Register}></Route>
+                {/* Switch子组件下直接命中第一个 后面的就不管了 */}
+                <Switch>：
+                    <Route path='/bossinfo' component={BossInfo}></Route>
+                    <Route path='/geniusinfo' component={GeniusInfo}></Route>
+                    <Route path='/login' component={Login}></Route>
+                    <Route path='/register' component={Register}></Route>
+                    <Route component={Dashboard}></Route>
+                </Switch>
+
+                {/* 找不到进入login */}
+                {/* <Redirect to='/login'></Redirect> */}
             </div>
         </BrowserRouter>
     </Provider>,

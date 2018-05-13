@@ -3,7 +3,7 @@ export function getRedirectPath(payload,avatar){
     // user.type /boss /genius
     // user.avatar /bossinfo /geniusinfo
     let url = (payload.type === 'boss') ? '/boss' : '/genius'
-    if(!avatar){
+    if(!payload.avatar){
         url += 'info'
     }
     return url
