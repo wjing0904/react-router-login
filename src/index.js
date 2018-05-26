@@ -19,6 +19,7 @@ import AuthRoute from './component/authroute/authroute'
 import Dashboard from './component/dashboard/dashboard'
 import BossInfo from './container/bossinfo/bossinfo'
 import GeniusInfo from './container/geniusinfo/geniusinfo'
+import Chat from './component/chat/chat'
 //判断是否开启调试工具
 const windowDevToolsExtension=window.devToolsExtension?window.devToolsExtension():fn=>fn()
 
@@ -44,6 +45,7 @@ ReactDom.render(
                     <Route path='/geniusinfo' component={GeniusInfo}></Route>
                     <Route path='/login' component={Login}></Route>
                     <Route path='/register' component={Register}></Route>
+                    <Route path='/chat/:user' component={Chat}></Route>
                     <Route component={Dashboard}></Route>
                 </Switch>
 
